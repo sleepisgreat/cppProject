@@ -31,3 +31,5 @@ void Account::Withdraw(int money) {
 Account::~Account() {
 	delete[]this->name;
 }
+
+// dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
