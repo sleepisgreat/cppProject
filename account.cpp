@@ -1,22 +1,29 @@
 #include "account.h"
 #include "common.h"
 
+Account::Account(const Account &ref) 
+	: accID(ref.accID), balance(ref.balance) 
+{
+	this->name = new char[strlen(ref.name) + 1];
+	strcpy_s(this->name, strlen(ref.name) + 1, ref.name);
+}
+
 Account::Account(int id, char *name, int balance)
 	: accID(id), balance(balance)
 {
-	this->name = new char[MAX_NAME_LEN];
-	strcpy_s(this->name, MAX_NAME_LEN, name);
+	this->name = new char[strlen(name) + 1];
+	strcpy_s(this->name, strlen(name) + 1, name);
 }
 
-int Account::GetAccountID() {
+int Account::GetAccountID() const {
 	return this->accID;
 }
 
-int Account::GetBalance() {
+int Account::GetBalance() const{
 	return this->balance;
 }
 
-char* Account::GetUserName() {
+char* Account::GetUserName() const{
 	return this->name;
 }
 
