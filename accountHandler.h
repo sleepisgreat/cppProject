@@ -3,6 +3,7 @@
 
 #include "account.h"
 
+
 class accountHandler {
 private:
 	Account* account[100]; // 가입한 고객 정보

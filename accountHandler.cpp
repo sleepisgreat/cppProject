@@ -1,5 +1,6 @@
 #include "accountHandler.h"
 #include "common.h"
+#include "NormalAccount.h"
 
 void accountHandler::ShowMenu() const {
 	cout << "1. °èÁÂ°³¼³" << endl;
@@ -10,18 +11,36 @@ void accountHandler::ShowMenu() const {
 }
 
 void accountHandler::MakeAccount() {
+	char rank;
+	int num, rate;
 	int id, balance;
 	char name[MAX_NAME_LEN];
 
-	cout << "[°èÁÂ°³¼³]" << endl;
-	cout << "°èÁÂ ID: ";
-	cin >> id;
-	cout << "ÀÌ¸§: ";
-	cin >> name;
-	cout << "ÀÔ±Ý¾×: ";
-	cin >> balance;
+	while (true) {
+		cout << "[°èÁÂ°³¼³]" << endl;
+		cout << "°èÁÂ ¼±ÅÃ(º¸Åë°èÁÂ[1], »óÀ§°èÁÂ[2] : ";
+		cin >> num;
 
-	account[curCount++] = new Account(id, name, balance);
+		cout << "°èÁÂ ID: ";
+		cin >> id;
+		cout << "ÀÌ¸§: ";
+		cin >> name;
+		cout << "ÀÔ±Ý¾×: ";
+		cin >> balance;
+
+		if (num == 1) {
+			account[curCount++] = new NormalAccount(id, name, balance, RATE);
+			break;
+		}
+		else if (num == 2) {
+			cout << "½Å¿ëµî±Þ: ";
+			cin >> rank;
+			account[curCount++] = new NormalAccount(id, name, balance, RATE);
+			break;
+		}
+		else
+			continue;
+	}
 }
 
 void accountHandler::DepositMoney() {
@@ -70,16 +89,17 @@ void accountHandler::WithdrawMoney() {
 }
 
 void accountHandler::ShowAllInfo() const {
+	
 	cout << "[»ç¿ëÀÚ Á¤º¸]" << endl;
 	for (int i = 0; i < curCount; i++) {
-		cout << "--------" << i + 1 << "--------" << endl;
-		cout << "°èÁÂ ID: " << account[i]->GetAccountID() << endl;
-		cout << "ÀÌ¸§: " << account[i]->GetUserName() << endl;
-		cout << "ÀÜ¾×: " << account[i]->GetBalance() << endl;
+		cout << "-------- " << i + 1 << " --------" << endl;
+		account[i]->ShowAccInfo();
 		cout << endl;
 	}
 }
 
 accountHandler::~accountHandler() {
-	delete []account;
+	for (int i = 0; i < curCount; i++) {
+		delete account[i];
+	}
 }

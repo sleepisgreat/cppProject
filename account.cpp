@@ -35,8 +35,13 @@ void Account::Withdraw(int money) {
 	this->balance -= money;
 }
 
+void Account::ShowAccInfo() const {
+	cout << "°èÁÂ ID: " << this->accID << endl;
+	cout << "ÀÌ¸§: " << this->name << endl;
+	cout << "ÀÜ¾×: " << this->balance << endl;
+}
+
 Account::~Account() {
 	delete[]this->name;
 }
 
-// dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
